@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import 'Replanteo.dart';
+
 class Calculo extends StatefulWidget {
   @override
   _Calculo createState() => _Calculo();
@@ -42,44 +44,89 @@ class _Calculo extends State<Calculo> {
 
   TextEditingController _pataIntD = TextEditingController();
   TextEditingController _pataExtD = TextEditingController();
+
+  TextEditingController _resultadoIntProfA = TextEditingController();
+  TextEditingController _resultadoExtProfA = TextEditingController();
+  TextEditingController _resultadoIntProfB = TextEditingController();
+  TextEditingController _resultadoExtProfB = TextEditingController();
+  TextEditingController _resultadoIntProfC = TextEditingController();
+  TextEditingController _resultadoExtProfC = TextEditingController();
+  TextEditingController _resultadoIntProfD = TextEditingController();
+  TextEditingController _resultadoExtProfD = TextEditingController();
+
+  TextEditingController _promedioA = TextEditingController();
+  TextEditingController _promedioB = TextEditingController();
+  TextEditingController _promedioC = TextEditingController();
+  TextEditingController _promedioD = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Niveles de excavacion',
-          textAlign: TextAlign.center,
-          overflow: TextOverflow.ellipsis,
-          style: TextStyle(fontWeight: FontWeight.bold),
+        appBar: AppBar(
+          title: Text(
+            'Niveles de excavacion',
+            textAlign: TextAlign.center,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
         ),
-      ),
-      body: ListView(
-        padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
-        children: <Widget>[
-          _cotaCentral(),
-          Divider(),
-          _profundidad(),
-          Divider(),
-          _crearDropdown(),
-          Divider(),
-          _opciones(),
-          Divider(),
-          _patasA(),
-          Divider(),
-          _patasB(),
-          Divider(),
-          _patasC(),
-          Divider(),
-          _patasD(),
-          Divider(),
-          _cotaReferencia(),
-          Divider(),
-          _excavacionCotaA(),
-          Divider(),
-          _excavacionCotaB(),
-        ],
-      ),
-    );
+        body: ListView(
+          padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
+          children: <Widget>[
+            _cotaCentral(),
+            Divider(),
+            _profundidad(),
+            Divider(),
+            _opciones(),
+            Divider(),
+            _patasA(),
+            Divider(),
+            _patasB(),
+            Divider(),
+            _patasC(),
+            Divider(),
+            _patasD(),
+            Divider(),
+            _crearDropdown(),
+            Divider(),
+            _cotaReferencia(),
+            Divider(),
+            _excavacionCotaA(),
+            Divider(),
+            _excavacionProfA(),
+            Divider(),
+            _PromedioA(),
+            Divider(),
+            _excavacionCotaB(),
+            Divider(),
+            _excavacionProfB(),
+            Divider(),
+            _PromedioB(),
+            Divider(),
+            _excavacionCotaC(),
+            Divider(),
+            _excavacionProfC(),
+            Divider(),
+            _PromedioC(),
+            Divider(),
+            _excavacionCotaD(),
+            Divider(),
+            _excavacionProfD(),
+            Divider(),
+            _PromedioD(),
+          ],
+        ),
+        floatingActionButton: FloatingActionButton(
+            elevation: 10.0,
+            child: Icon(Icons.skip_next),
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Replanteo(
+                        _pataA.text, _pataB.text, _pataC.text, _pataD.text),
+                  ));
+            }));
   }
 
   Widget _cotaReferencia() {
@@ -191,6 +238,108 @@ class _Calculo extends State<Calculo> {
                 fillColor: Color(0xFFDBEDFF),
               ),
               controller: _resultadoCotaFundExtB,
+              keyboardType: TextInputType.numberWithOptions(decimal: true),
+            ), //BoxDecoration
+          ),
+          //Container
+        ),
+        //Flexible
+      ],
+    );
+  }
+
+  Widget _excavacionCotaC() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: <Widget>[
+        Flexible(
+          flex: 1,
+          fit: FlexFit.tight,
+          child: Container(
+            child: TextField(
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20.0)),
+                hintText: 'COTA C int',
+                labelText: 'COTA C int',
+                suffixIcon: Icon(Icons.square_foot),
+                filled: true,
+                fillColor: Color(0xFFDBEDFF),
+              ),
+              controller: _resultadoCotaFundIntC,
+              keyboardType: TextInputType.numberWithOptions(decimal: true),
+            ), //BoxDecoration
+          ), //Container
+        ), //Flexible
+        SizedBox(
+          width: 20,
+        ), //SizedBox
+        Flexible(
+          flex: 1,
+          fit: FlexFit.loose,
+          child: Container(
+            child: TextField(
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20.0)),
+                hintText: 'COTA C ext',
+                labelText: 'COTA C ext',
+                suffixIcon: Icon(Icons.square_foot),
+                filled: true,
+                fillColor: Color(0xFFDBEDFF),
+              ),
+              controller: _resultadoCotaFundExtC,
+              keyboardType: TextInputType.numberWithOptions(decimal: true),
+            ), //BoxDecoration
+          ),
+          //Container
+        ),
+        //Flexible
+      ],
+    );
+  }
+
+  Widget _excavacionCotaD() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: <Widget>[
+        Flexible(
+          flex: 1,
+          fit: FlexFit.tight,
+          child: Container(
+            child: TextField(
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20.0)),
+                hintText: 'COTA D int',
+                labelText: 'COTA D int',
+                suffixIcon: Icon(Icons.square_foot),
+                filled: true,
+                fillColor: Color(0xFFDBEDFF),
+              ),
+              controller: _resultadoCotaFundIntD,
+              keyboardType: TextInputType.numberWithOptions(decimal: true),
+            ), //BoxDecoration
+          ), //Container
+        ), //Flexible
+        SizedBox(
+          width: 20,
+        ), //SizedBox
+        Flexible(
+          flex: 1,
+          fit: FlexFit.loose,
+          child: Container(
+            child: TextField(
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20.0)),
+                hintText: 'COTA D ext',
+                labelText: 'COTA D ext',
+                suffixIcon: Icon(Icons.square_foot),
+                filled: true,
+                fillColor: Color(0xFFDBEDFF),
+              ),
+              controller: _resultadoCotaFundExtD,
               keyboardType: TextInputType.numberWithOptions(decimal: true),
             ), //BoxDecoration
           ),
@@ -375,7 +524,7 @@ class _Calculo extends State<Calculo> {
             )),
         new Flexible(
           child: Padding(
-            padding: const EdgeInsets.all(20.0),
+            padding: const EdgeInsets.all(8.0),
             child: new TextField(
               textCapitalization: TextCapitalization.sentences,
               decoration: InputDecoration(
@@ -398,7 +547,7 @@ class _Calculo extends State<Calculo> {
           child: new TextField(
             textCapitalization: TextCapitalization.sentences,
             decoration: InputDecoration(
-              contentPadding: EdgeInsets.all(10),
+              contentPadding: EdgeInsets.all(8),
               border:
                   OutlineInputBorder(borderRadius: BorderRadius.circular(20.0)),
               hintText: 'A ext',
@@ -426,7 +575,7 @@ class _Calculo extends State<Calculo> {
             )),
         new Flexible(
           child: Padding(
-            padding: const EdgeInsets.all(20.0),
+            padding: const EdgeInsets.all(8.0),
             child: new TextField(
               textCapitalization: TextCapitalization.sentences,
               decoration: InputDecoration(
@@ -449,7 +598,7 @@ class _Calculo extends State<Calculo> {
           child: new TextField(
             textCapitalization: TextCapitalization.sentences,
             decoration: InputDecoration(
-              contentPadding: EdgeInsets.all(10),
+              contentPadding: EdgeInsets.all(8),
               border:
                   OutlineInputBorder(borderRadius: BorderRadius.circular(20.0)),
               hintText: 'B ext',
@@ -477,7 +626,7 @@ class _Calculo extends State<Calculo> {
             )),
         new Flexible(
           child: Padding(
-            padding: const EdgeInsets.all(20.0),
+            padding: const EdgeInsets.all(8.0),
             child: new TextField(
               textCapitalization: TextCapitalization.sentences,
               decoration: InputDecoration(
@@ -500,7 +649,7 @@ class _Calculo extends State<Calculo> {
           child: new TextField(
             textCapitalization: TextCapitalization.sentences,
             decoration: InputDecoration(
-              contentPadding: EdgeInsets.all(10),
+              contentPadding: EdgeInsets.all(8),
               border:
                   OutlineInputBorder(borderRadius: BorderRadius.circular(20.0)),
               hintText: 'C ext',
@@ -528,7 +677,7 @@ class _Calculo extends State<Calculo> {
             )),
         new Flexible(
           child: Padding(
-            padding: const EdgeInsets.all(20.0),
+            padding: const EdgeInsets.all(8.0),
             child: new TextField(
               textCapitalization: TextCapitalization.sentences,
               decoration: InputDecoration(
@@ -551,7 +700,7 @@ class _Calculo extends State<Calculo> {
           child: new TextField(
             textCapitalization: TextCapitalization.sentences,
             decoration: InputDecoration(
-              contentPadding: EdgeInsets.all(10),
+              contentPadding: EdgeInsets.all(8),
               border:
                   OutlineInputBorder(borderRadius: BorderRadius.circular(20.0)),
               hintText: 'D ext',
@@ -569,6 +718,287 @@ class _Calculo extends State<Calculo> {
     );
   }
 
+  //
+  Widget _excavacionProfA() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: <Widget>[
+        Flexible(
+          flex: 1,
+          fit: FlexFit.tight,
+          child: Container(
+            child: TextField(
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20.0)),
+                hintText: 'PROF A int',
+                labelText: 'PROF A int',
+                suffixIcon: Icon(Icons.square_foot),
+                filled: true,
+                fillColor: Color(0x33BAFF),
+              ),
+              controller: _resultadoIntProfA,
+              keyboardType: TextInputType.numberWithOptions(decimal: true),
+            ), //BoxDecoration
+          ), //Container
+        ), //Flexible
+        SizedBox(
+          width: 20,
+        ), //SizedBox
+        Flexible(
+          flex: 1,
+          fit: FlexFit.loose,
+          child: Container(
+            child: TextField(
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20.0)),
+                hintText: 'PROF A ext',
+                labelText: 'PROF A ext',
+                suffixIcon: Icon(Icons.square_foot),
+                filled: true,
+                fillColor: Color(0x33BAFF),
+              ),
+              controller: _resultadoExtProfA,
+              keyboardType: TextInputType.numberWithOptions(decimal: true),
+            ), //BoxDecoration
+          ),
+          //Container
+        ),
+        //Flexible
+      ],
+    );
+  }
+
+  //
+  Widget _excavacionProfB() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: <Widget>[
+        Flexible(
+          flex: 1,
+          fit: FlexFit.tight,
+          child: Container(
+            child: TextField(
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20.0)),
+                hintText: 'PROF B int',
+                labelText: 'PROF B int',
+                suffixIcon: Icon(Icons.square_foot),
+                filled: true,
+                fillColor: Color(0x33BAFF),
+              ),
+              controller: _resultadoIntProfB,
+              keyboardType: TextInputType.numberWithOptions(decimal: true),
+            ), //BoxDecoration
+          ), //Container
+        ), //Flexible
+        SizedBox(
+          width: 20,
+        ), //SizedBox
+        Flexible(
+          flex: 1,
+          fit: FlexFit.loose,
+          child: Container(
+            child: TextField(
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20.0)),
+                hintText: 'PROF B ext',
+                labelText: 'PROF B ext',
+                suffixIcon: Icon(Icons.square_foot),
+                filled: true,
+                fillColor: Color(0x33BAFF),
+              ),
+              controller: _resultadoExtProfB,
+              keyboardType: TextInputType.numberWithOptions(decimal: true),
+            ), //BoxDecoration
+          ),
+          //Container
+        ),
+        //Flexible
+      ],
+    );
+  }
+
+  //
+  Widget _excavacionProfC() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: <Widget>[
+        Flexible(
+          flex: 1,
+          fit: FlexFit.tight,
+          child: Container(
+            child: TextField(
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20.0)),
+                hintText: 'PROF C int',
+                labelText: 'PROF C int',
+                suffixIcon: Icon(Icons.square_foot),
+                filled: true,
+                fillColor: Color(0x33BAFF),
+              ),
+              controller: _resultadoIntProfC,
+              keyboardType: TextInputType.numberWithOptions(decimal: true),
+            ), //BoxDecoration
+          ), //Container
+        ), //Flexible
+        SizedBox(
+          width: 20,
+        ), //SizedBox
+        Flexible(
+          flex: 1,
+          fit: FlexFit.loose,
+          child: Container(
+            child: TextField(
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20.0)),
+                hintText: 'PROF C ext',
+                labelText: 'PROF C ext',
+                suffixIcon: Icon(Icons.square_foot),
+                filled: true,
+                fillColor: Color(0x33BAFF),
+              ),
+              controller: _resultadoExtProfC,
+              keyboardType: TextInputType.numberWithOptions(decimal: true),
+            ), //BoxDecoration
+          ),
+          //Container
+        ),
+        //Flexible
+      ],
+    );
+  }
+
+  //
+  Widget _excavacionProfD() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: <Widget>[
+        Flexible(
+          flex: 1,
+          fit: FlexFit.tight,
+          child: Container(
+            child: TextField(
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20.0)),
+                hintText: 'PROF D int',
+                labelText: 'PROF D int',
+                suffixIcon: Icon(Icons.square_foot),
+                filled: true,
+                fillColor: Color(0x33BAFF),
+              ),
+              controller: _resultadoIntProfD,
+              keyboardType: TextInputType.numberWithOptions(decimal: true),
+            ), //BoxDecoration
+          ), //Container
+        ), //Flexible
+        SizedBox(
+          width: 20,
+        ), //SizedBox
+        Flexible(
+          flex: 1,
+          fit: FlexFit.loose,
+          child: Container(
+            child: TextField(
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20.0)),
+                hintText: 'PROF D ext',
+                labelText: 'PROF D ext',
+                suffixIcon: Icon(Icons.square_foot),
+                filled: true,
+                fillColor: Color(0x33BAFF),
+              ),
+              controller: _resultadoExtProfD,
+              keyboardType: TextInputType.numberWithOptions(decimal: true),
+            ), //BoxDecoration
+          ),
+          //Container
+        ),
+        //Flexible
+      ],
+    );
+  }
+
+  //
+  Widget _PromedioA() {
+    return AbsorbPointer(
+      child: TextField(
+        decoration: InputDecoration(
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(20.0)),
+          hintText: 'Promedio A',
+          labelText: 'Promedio A',
+          suffixIcon: Icon(Icons.square_foot),
+          filled: true,
+          fillColor: Color(0xFFDBEDFF),
+        ),
+        controller: _promedioA,
+        keyboardType: TextInputType.numberWithOptions(decimal: true),
+      ),
+    );
+  }
+
+  //
+  Widget _PromedioB() {
+    return AbsorbPointer(
+      child: TextField(
+        decoration: InputDecoration(
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(20.0)),
+          hintText: 'Promedio B',
+          labelText: 'Promedio B',
+          suffixIcon: Icon(Icons.square_foot),
+          filled: true,
+          fillColor: Color(0xFFDBEDFF),
+        ),
+        controller: _promedioB,
+        keyboardType: TextInputType.numberWithOptions(decimal: true),
+      ),
+    );
+  }
+
+  //
+  Widget _PromedioC() {
+    return AbsorbPointer(
+      child: TextField(
+        decoration: InputDecoration(
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(20.0)),
+          hintText: 'Promedio C',
+          labelText: 'Promedio C',
+          suffixIcon: Icon(Icons.square_foot),
+          filled: true,
+          fillColor: Color(0xFFDBEDFF),
+        ),
+        controller: _promedioC,
+        keyboardType: TextInputType.numberWithOptions(decimal: true),
+      ),
+    );
+  }
+
+  //
+  Widget _PromedioD() {
+    return AbsorbPointer(
+      child: TextField(
+        decoration: InputDecoration(
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(20.0)),
+          hintText: 'Promedio D',
+          labelText: 'Promedio D',
+          suffixIcon: Icon(Icons.square_foot),
+          filled: true,
+          fillColor: Color(0xFFDBEDFF),
+        ),
+        controller: _promedioD,
+        keyboardType: TextInputType.numberWithOptions(decimal: true),
+      ),
+    );
+  }
+
+  //
   void _calculate() {
     if (_cotaCentralInput.text.trim().isNotEmpty &&
         _profundidadInput.text.trim().isNotEmpty) {
@@ -578,6 +1008,7 @@ class _Calculo extends State<Calculo> {
     }
   }
 
+  //
   void _calculate2() {
     if (_cotaCentralInput.text.trim().isNotEmpty &&
         _profundidadInput.text.trim().isNotEmpty &&
@@ -593,41 +1024,224 @@ class _Calculo extends State<Calculo> {
       final pataValueC = double.parse(_pataC.text);
       final pataValueD = double.parse(_pataD.text);
 
+      final pataValueAInt = double.parse(_pataIntA.text);
+      final pataValueAExt = double.parse(_pataExtA.text);
+      final pataValueBInt = double.parse(_pataIntB.text);
+      final pataValueBExt = double.parse(_pataExtB.text);
+      final pataValueCInt = double.parse(_pataIntC.text);
+      final pataValueCExt = double.parse(_pataExtC.text);
+      final pataValueDInt = double.parse(_pataIntD.text);
+      final pataValueDExt = double.parse(_pataExtD.text);
+
       final total = firstValue - secondValue;
       switch (_opcionSeleccionada) {
         case 'A':
+          //A
           _resultadoCotaFundIntA.text = (total).toString();
           _resultadoCotaFundExtA.text = (total).toString();
-
-          _resultadoCotaFundIntB.text = (total).toString();
-          _resultadoCotaFundExtB.text = (total).toString();
+          _resultadoIntProfA.text = (pataValueAInt - total).toString();
+          _resultadoExtProfA.text = (pataValueAExt - total).toString();
+          _promedioA.text =
+              (((pataValueAInt - total) + (pataValueAExt - total)) / 2)
+                  .toString();
+          //B
+          _resultadoCotaFundIntB.text =
+              (total - (pataValueB - pataValueA)).toString();
+          _resultadoCotaFundExtB.text =
+              (total - (pataValueB - pataValueA)).toString();
+          _resultadoIntProfB.text =
+              (pataValueBInt - (total - (pataValueB - pataValueA))).toString();
+          _resultadoExtProfB.text =
+              (pataValueBInt - (total - (pataValueB - pataValueA))).toString();
+          _promedioB.text = (((pataValueBInt -
+                          (total - (pataValueB - pataValueA))) +
+                      (pataValueBInt - (total - (pataValueB - pataValueA)))) /
+                  2)
+              .toString();
+          //C
+          _resultadoCotaFundIntC.text =
+              (total - (pataValueC - pataValueA)).toString();
+          _resultadoCotaFundExtC.text =
+              (total - (pataValueC - pataValueA)).toString();
+          _resultadoIntProfC.text =
+              (pataValueCInt - (total - (pataValueC - pataValueA))).toString();
+          _resultadoExtProfC.text =
+              (pataValueCExt - (total - (pataValueC - pataValueA))).toString();
+          _promedioC.text = (((pataValueCInt -
+                          (total - (pataValueC - pataValueA))) +
+                      (pataValueCExt - (total - (pataValueC - pataValueA)))) /
+                  2)
+              .toString();
+          //D
+          _resultadoCotaFundIntD.text =
+              (total - (pataValueD - pataValueA)).toString();
+          _resultadoCotaFundExtD.text =
+              (total - (pataValueD - pataValueA)).toString();
+          _resultadoIntProfD.text =
+              (pataValueDInt - (total - (pataValueD - pataValueA))).toString();
+          _resultadoExtProfD.text =
+              (pataValueDExt - (total - (pataValueD - pataValueA))).toString();
+          _promedioD.text = (((pataValueDInt -
+                          (total - (pataValueD - pataValueA))) +
+                      (pataValueDExt - (total - (pataValueD - pataValueA)))) /
+                  2)
+              .toString();
           break;
         case 'B':
+          //A
           _resultadoCotaFundIntA.text =
               (total - (pataValueA - pataValueB)).toString();
           _resultadoCotaFundExtA.text =
               (total - (pataValueA - pataValueB)).toString();
-
+          _resultadoIntProfA.text =
+              (pataValueAInt - (total - (pataValueA - pataValueB))).toString();
+          _resultadoExtProfA.text =
+              (pataValueAExt - (total - (pataValueA - pataValueB))).toString();
+          _promedioA.text = (((pataValueAInt -
+                          (total - (pataValueA - pataValueB))) +
+                      (pataValueAExt - (total - (pataValueA - pataValueB)))) /
+                  2)
+              .toString();
+          //B
           _resultadoCotaFundIntB.text = (total).toString();
           _resultadoCotaFundExtB.text = (total).toString();
+          _resultadoIntProfB.text = (pataValueBInt - total).toString();
+          _resultadoExtProfB.text = (pataValueBExt - total).toString();
+          _promedioB.text =
+              (((pataValueBInt - total) + (pataValueBExt - total)) / 2)
+                  .toString();
+          //C
+          _resultadoCotaFundIntC.text =
+              (total - (pataValueC - pataValueB)).toString();
+          _resultadoCotaFundExtC.text =
+              (total - (pataValueC - pataValueB)).toString();
+          _resultadoIntProfC.text =
+              (pataValueCInt - (total - (pataValueC - pataValueB))).toString();
+          _resultadoExtProfC.text =
+              (pataValueCExt - (total - (pataValueC - pataValueB))).toString();
+          _promedioC.text = (((pataValueCInt -
+                          (total - (pataValueC - pataValueB))) +
+                      (pataValueCExt - (total - (pataValueC - pataValueB)))) /
+                  2)
+              .toString();
+          //D
+          _resultadoCotaFundIntD.text =
+              (total - (pataValueD - pataValueB)).toString();
+          _resultadoCotaFundExtD.text =
+              (total - (pataValueD - pataValueB)).toString();
+          _resultadoIntProfD.text =
+              (pataValueDInt - (total - (pataValueD - pataValueB))).toString();
+          _resultadoExtProfD.text =
+              (pataValueDExt - (total - (pataValueD - pataValueB))).toString();
+          _promedioD.text = (((pataValueDInt -
+                          (total - (pataValueD - pataValueB))) +
+                      (pataValueDExt - (total - (pataValueD - pataValueB)))) /
+                  2)
+              .toString();
           break;
         case 'C':
+          //A
           _resultadoCotaFundIntA.text =
               (total - (pataValueA - pataValueC)).toString();
           _resultadoCotaFundExtA.text =
               (total - (pataValueA - pataValueC)).toString();
-
-          _resultadoCotaFundIntB.text = (total).toString();
-          _resultadoCotaFundExtB.text = (total).toString();
+          _resultadoIntProfA.text =
+              (pataValueAInt - (total - (pataValueA - pataValueC))).toString();
+          _resultadoExtProfA.text =
+              (pataValueAExt - (total - (pataValueA - pataValueC))).toString();
+          _promedioA.text = (((pataValueAInt -
+                          (total - (pataValueA - pataValueC))) +
+                      (pataValueAExt - (total - (pataValueA - pataValueC)))) /
+                  2)
+              .toString();
+          //B
+          _resultadoCotaFundIntB.text =
+              (total - (pataValueB - pataValueC)).toString();
+          _resultadoCotaFundExtB.text =
+              (total - (pataValueB - pataValueC)).toString();
+          _resultadoIntProfB.text =
+              (pataValueBInt - (total - (pataValueB - pataValueC))).toString();
+          _resultadoExtProfB.text =
+              (pataValueBExt - (total - (pataValueB - pataValueC))).toString();
+          _promedioB.text = (((pataValueBInt -
+                          (total - (pataValueB - pataValueC))) +
+                      (pataValueBExt - (total - (pataValueB - pataValueC)))) /
+                  2)
+              .toString();
+          //C
+          _resultadoCotaFundIntC.text = (total).toString();
+          _resultadoCotaFundExtC.text = (total).toString();
+          _resultadoIntProfC.text = (pataValueCInt - total).toString();
+          _resultadoExtProfC.text = (pataValueCExt - total).toString();
+          _promedioC.text =
+              (((pataValueCInt - total) + (pataValueCExt - total)) / 2)
+                  .toString();
+          //D
+          _resultadoCotaFundIntD.text =
+              (total - (pataValueD - pataValueC)).toString();
+          _resultadoCotaFundExtD.text =
+              (total - (pataValueD - pataValueC)).toString();
+          _resultadoIntProfD.text =
+              (pataValueDInt - (total - (pataValueD - pataValueC))).toString();
+          _resultadoExtProfD.text =
+              (pataValueDExt - (total - (pataValueD - pataValueC))).toString();
+          _promedioD.text = (((pataValueDInt -
+                          (total - (pataValueD - pataValueC))) +
+                      (pataValueDExt - (total - (pataValueD - pataValueC)))) /
+                  2)
+              .toString();
           break;
         case 'D':
+          //A
           _resultadoCotaFundIntA.text =
               (total - (pataValueA - pataValueD)).toString();
           _resultadoCotaFundExtA.text =
               (total - (pataValueA - pataValueD)).toString();
-
-          _resultadoCotaFundIntB.text = (total).toString();
-          _resultadoCotaFundExtB.text = (total).toString();
+          _resultadoIntProfA.text =
+              (pataValueAInt - (total - (pataValueA - pataValueD))).toString();
+          _resultadoExtProfA.text =
+              (pataValueAExt - (total - (pataValueA - pataValueD))).toString();
+          _promedioA.text = (((pataValueAInt -
+                          (total - (pataValueA - pataValueD))) +
+                      (pataValueAExt - (total - (pataValueA - pataValueD)))) /
+                  2)
+              .toString();
+          //B
+          _resultadoCotaFundIntB.text =
+              (total - (pataValueB - pataValueD)).toString();
+          _resultadoCotaFundExtB.text =
+              (total - (pataValueB - pataValueD)).toString();
+          _resultadoIntProfB.text =
+              (pataValueBInt - (total - (pataValueB - pataValueD))).toString();
+          _resultadoExtProfB.text =
+              (pataValueBExt - (total - (pataValueB - pataValueD))).toString();
+          _promedioB.text = (((pataValueBInt -
+                          (total - (pataValueB - pataValueD))) +
+                      (pataValueBExt - (total - (pataValueB - pataValueD)))) /
+                  2)
+              .toString();
+          //C
+          _resultadoCotaFundIntC.text =
+              (total - (pataValueC - pataValueD)).toString();
+          _resultadoCotaFundExtC.text =
+              (total - (pataValueC - pataValueD)).toString();
+          _resultadoIntProfC.text =
+              (pataValueCInt - (total - (pataValueC - pataValueD))).toString();
+          _resultadoExtProfC.text =
+              (pataValueCExt - (total - (pataValueC - pataValueD))).toString();
+          _promedioC.text = (((pataValueCInt -
+                          (total - (pataValueC - pataValueD))) +
+                      (pataValueCExt - (total - (pataValueC - pataValueD)))) /
+                  2)
+              .toString();
+          //D
+          _resultadoCotaFundIntD.text = (total).toString();
+          _resultadoCotaFundExtD.text = (total).toString();
+          _resultadoIntProfD.text = (pataValueDInt - total).toString();
+          _resultadoExtProfD.text = (pataValueDExt - total).toString();
+          _promedioD.text =
+              (((pataValueDInt - total) + (pataValueDExt - total)) / 2)
+                  .toString();
           break;
       }
     }

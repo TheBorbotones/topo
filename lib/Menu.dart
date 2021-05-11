@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:app_v2/menu/calculo.dart';
+import 'package:app_v2/menu/Replanteo.dart';
 
 class Menu extends StatelessWidget {
   @override
@@ -17,7 +18,7 @@ class Menu extends StatelessWidget {
               ),
             ),
             decoration: BoxDecoration(
-                color: Colors.green,
+                //color: Colors.green,
                 image: DecorationImage(
                     fit: BoxFit.fill, image: AssetImage('assets/img/x2.jpg'))),
           ),
@@ -33,7 +34,11 @@ class Menu extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.verified_user),
             title: Text('Replanteo para Fundaciones'),
-            onTap: () => {Navigator.of(context).pop()},
+            onTap: () => {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => Replanteo('', '', '', ''),
+              ))
+            },
           ),
           ListTile(
             leading: Icon(Icons.settings),
