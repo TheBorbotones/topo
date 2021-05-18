@@ -18,6 +18,11 @@ class _Replanteo extends State<Replanteo> {
   TextEditingController _pataC = TextEditingController();
   TextEditingController _pataD = TextEditingController();
 
+  TextEditingController _pataAa = TextEditingController();
+  TextEditingController _pataBb = TextEditingController();
+  TextEditingController _pataCc = TextEditingController();
+  TextEditingController _pataDd = TextEditingController();
+
   TextEditingController _distanciaA = TextEditingController();
   TextEditingController _distanciaB = TextEditingController();
   TextEditingController _distanciaC = TextEditingController();
@@ -70,7 +75,8 @@ class _Replanteo extends State<Replanteo> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => CantidadObra(),
+                    builder: (context) => CantidadObra(
+                        _pataAa.text, _pataBb.text, _pataCc.text, _pataDd.text),
                   ));
             }));
   }

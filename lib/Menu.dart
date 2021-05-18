@@ -1,3 +1,4 @@
+import 'package:app_v2/menu/Lateral.dart';
 import 'package:flutter/material.dart';
 import 'package:app_v2/menu/calculo.dart';
 import 'package:app_v2/menu/Replanteo.dart';
@@ -31,27 +32,17 @@ class Menu extends StatelessWidget {
               ))
             },
           ),
-          ListTile(
-            leading: Icon(Icons.verified_user),
-            title: Text('Replanteo para Fundaciones'),
-            onTap: () => {
-              Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => Replanteo('', '', '', ''),
-              ))
-            },
-          ),
-          ListTile(
-            leading: Icon(Icons.settings),
-            title: Text('Cantidades de Obra'),
-            onTap: () => {Navigator.of(context).pop()},
-          ),
-          ListTile(
+          /*ListTile(
             leading: Icon(Icons.border_color),
             title: Text('Laterales'),
-            onTap: () => {Navigator.of(context).pop()},
-          ),
+            onTap: () => {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => Lateral(),
+              ))
+            },
+          ),*/
           ListTile(
-            leading: Icon(Icons.border_color),
+            leading: Icon(Icons.settings_applications),
             title: Text('Opciones'),
             onTap: () => {Navigator.of(context).pop()},
           ),

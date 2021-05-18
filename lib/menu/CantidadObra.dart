@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'Lateral.dart';
 
 class CantidadObra extends StatefulWidget {
+  final String pata_A, pata_B, pata_C, pata_D;
+  CantidadObra(this.pata_A, this.pata_B, this.pata_C, this.pata_D);
   @override
   _CantidadObra createState() => _CantidadObra();
 }
@@ -30,7 +33,7 @@ class _CantidadObra extends State<CantidadObra> {
     return Scaffold(
         appBar: AppBar(
           title: Text(
-            'REPLANTEO PARA FUNDACIONES',
+            'CANTIDAD DE OBRA',
             textAlign: TextAlign.center,
             overflow: TextOverflow.ellipsis,
             style: TextStyle(fontWeight: FontWeight.bold),
@@ -49,7 +52,17 @@ class _CantidadObra extends State<CantidadObra> {
             Divider(),
             _resultados(),
           ],
-        ));
+        ),
+        floatingActionButton: FloatingActionButton(
+            elevation: 10.0,
+            child: Icon(Icons.skip_next),
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Lateral(),
+                  ));
+            }));
   }
 
   Widget _resultados() {
