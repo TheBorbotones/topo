@@ -1,10 +1,21 @@
+import 'dart:math';
+
 import 'package:app_v2/menu/CantidadObra.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'CantidadObra.dart';
 
 class Replanteo extends StatefulWidget {
-  final String pata_A, pata_B, pata_C, pata_D;
-  Replanteo(this.pata_A, this.pata_B, this.pata_C, this.pata_D);
+  final String pata_A,
+      pata_B,
+      pata_C,
+      pata_D,
+      promedioA,
+      promedioB,
+      promedioC,
+      promedioD;
+  Replanteo(this.pata_A, this.pata_B, this.pata_C, this.pata_D, this.promedioA,
+      this.promedioB, this.promedioC, this.promedioD);
   @override
   _Replanteo createState() => _Replanteo();
 }
@@ -12,6 +23,13 @@ class Replanteo extends StatefulWidget {
 class _Replanteo extends State<Replanteo> {
   TextEditingController _lateral_input = TextEditingController();
   TextEditingController _diagonal_input = TextEditingController();
+
+  TextEditingController _lateralAux = TextEditingController();
+
+  TextEditingController _promedioA = TextEditingController();
+  TextEditingController _promedioB = TextEditingController();
+  TextEditingController _promedioC = TextEditingController();
+  TextEditingController _promedioD = TextEditingController();
 
   TextEditingController _pataA = TextEditingController();
   TextEditingController _pataB = TextEditingController();
@@ -36,6 +54,12 @@ class _Replanteo extends State<Replanteo> {
   TextEditingController _resultadoCExt = TextEditingController();
   TextEditingController _resultadoDInt = TextEditingController();
   TextEditingController _resultadoDExt = TextEditingController();
+
+  TextEditingController _auxiliarA = TextEditingController();
+  TextEditingController _auxiliarB = TextEditingController();
+  TextEditingController _auxiliarC = TextEditingController();
+  TextEditingController _auxiliarD = TextEditingController();
+  TextEditingController _volumen = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,7 +100,20 @@ class _Replanteo extends State<Replanteo> {
                   context,
                   MaterialPageRoute(
                     builder: (context) => CantidadObra(
-                        _pataAa.text, _pataBb.text, _pataCc.text, _pataDd.text),
+                        _pataA.text,
+                        _pataB.text,
+                        _pataC.text,
+                        _pataD.text,
+                        _promedioA.text,
+                        _promedioB.text,
+                        _promedioC.text,
+                        _promedioD.text,
+                        _lateralAux.text,
+                        _auxiliarA.text,
+                        _auxiliarB.text,
+                        _auxiliarC.text,
+                        _auxiliarD.text,
+                        _volumen.text),
                   ));
             }));
   }
@@ -95,7 +132,7 @@ class _Replanteo extends State<Replanteo> {
           TextInputType.numberWithOptions(decimal: true, signed: false),
       controller: _lateral_input,
       onChanged: (value) {
-        //_resultado();
+        _resultado();
       },
     );
   }
@@ -105,13 +142,16 @@ class _Replanteo extends State<Replanteo> {
     return TextField(
       textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(
+          enabled: false,
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(20.0)),
           hintText: 'Diagonal    mm',
           labelText: 'Diagonal    mm',
+          filled: true,
+          fillColor: Color(0xFFDBEDFF),
           suffixIcon: Icon(Icons.square_foot),
           icon: Icon(Icons.create)),
-      keyboardType:
-          TextInputType.numberWithOptions(decimal: true, signed: false),
+      keyboardType: TextInputType.number,
+      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
       controller: _diagonal_input,
       onChanged: (value) {
         //_resultado();
@@ -299,6 +339,7 @@ class _Replanteo extends State<Replanteo> {
           child: Container(
             child: TextField(
               decoration: InputDecoration(
+                enabled: false,
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20.0)),
                 hintText: 'A int',
@@ -321,6 +362,7 @@ class _Replanteo extends State<Replanteo> {
           child: Container(
             child: TextField(
               decoration: InputDecoration(
+                enabled: false,
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20.0)),
                 hintText: 'A ext',
@@ -352,6 +394,7 @@ class _Replanteo extends State<Replanteo> {
           child: Container(
             child: TextField(
               decoration: InputDecoration(
+                enabled: false,
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20.0)),
                 hintText: 'B int',
@@ -374,6 +417,7 @@ class _Replanteo extends State<Replanteo> {
           child: Container(
             child: TextField(
               decoration: InputDecoration(
+                enabled: false,
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20.0)),
                 hintText: 'B ext',
@@ -404,6 +448,7 @@ class _Replanteo extends State<Replanteo> {
           child: Container(
             child: TextField(
               decoration: InputDecoration(
+                enabled: false,
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20.0)),
                 hintText: 'C int',
@@ -426,6 +471,7 @@ class _Replanteo extends State<Replanteo> {
           child: Container(
             child: TextField(
               decoration: InputDecoration(
+                enabled: false,
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20.0)),
                 hintText: 'C ext',
@@ -456,6 +502,7 @@ class _Replanteo extends State<Replanteo> {
           child: Container(
             child: TextField(
               decoration: InputDecoration(
+                enabled: false,
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20.0)),
                 hintText: 'D int',
@@ -478,6 +525,7 @@ class _Replanteo extends State<Replanteo> {
           child: Container(
             child: TextField(
               decoration: InputDecoration(
+                enabled: false,
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20.0)),
                 hintText: 'D ext',
@@ -496,6 +544,7 @@ class _Replanteo extends State<Replanteo> {
       ],
     );
   }
+  //
 
   //
   void initState() {
@@ -509,32 +558,60 @@ class _Replanteo extends State<Replanteo> {
     _pataB.text = (widget.pata_B).toString();
     _pataC.text = (widget.pata_C).toString();
     _pataD.text = (widget.pata_D).toString();
+    _promedioA.text = (widget.promedioA).toString();
+    _promedioB.text = (widget.promedioB).toString();
+    _promedioC.text = (widget.promedioC).toString();
+    _promedioD.text = (widget.promedioD).toString();
   }
 
   void _resultado() {
-    if (_distanciaA.text.trim().isNotEmpty &&
-        _distanciaB.text.trim().isNotEmpty &&
-        _distanciaC.text.trim().isNotEmpty &&
-        _distanciaD.text.trim().isNotEmpty) {
-      final distancia = double.parse(_diagonal_input.text);
-      final lateral = double.parse(_lateral_input.text);
+    if (_lateral_input.text.trim().isNotEmpty) {
+      double lateral = double.parse(_lateral_input.text);
+      double total = lateral * lateral;
 
-      final a = double.parse(_distanciaA.text);
-      final b = double.parse(_distanciaB.text);
-      final c = double.parse(_distanciaC.text);
-      final d = double.parse(_distanciaD.text);
+      _diagonal_input.text =
+          (((pow((2 * (total)), 0.5) * 1000).abs()).round()).toString();
+      int auxiliar = ((pow((2 * (total)), 0.5) * 1000).abs()).round();
 
-      _resultadoAInt.text = (a - (distancia / 2)).toString();
-      _resultadoAExt.text = (a + (distancia / 2)).toString();
+      double a = double.parse(_distanciaA.text);
+      double b = double.parse(_distanciaB.text);
+      double c = double.parse(_distanciaC.text);
+      double d = double.parse(_distanciaD.text);
 
-      _resultadoBInt.text = (b - (distancia / 2)).toString();
-      _resultadoBExt.text = (b + (distancia / 2)).toString();
+      double auxA = double.parse(_promedioA.text);
+      double auxB = double.parse(_promedioB.text);
+      double auxC = double.parse(_promedioC.text);
+      double auxD = double.parse(_promedioD.text);
 
-      _resultadoCInt.text = (c - (distancia / 2)).toString();
-      _resultadoCExt.text = (c + (distancia / 2)).toString();
+      _resultadoAInt.text = ((a - (auxiliar / 2)).round()).toString();
+      _resultadoAExt.text = ((a + (auxiliar / 2)).round()).toString();
 
-      _resultadoDInt.text = (d - (distancia / 2)).toString();
-      _resultadoDExt.text = (d + (distancia / 2)).toString();
+      _resultadoBInt.text = ((b - (auxiliar / 2)).round()).toString();
+      _resultadoBExt.text = ((b + (auxiliar / 2)).round()).toString();
+
+      _resultadoCInt.text = ((c - (auxiliar / 2)).round()).toString();
+      _resultadoCExt.text = ((c + (auxiliar / 2)).round()).toString();
+
+      _resultadoDInt.text = ((d - (auxiliar / 2)).round()).toString();
+      _resultadoDExt.text = ((d + (auxiliar / 2)).round()).toString();
+
+      _lateralAux.text = lateral.toString();
+
+      _auxiliarA.text =
+          ((lateral * lateral * auxA).toStringAsFixed(2)).toString();
+      _auxiliarB.text =
+          ((lateral * lateral * auxB).toStringAsFixed(2)).toString();
+      _auxiliarC.text =
+          ((lateral * lateral * auxC).toStringAsFixed(2)).toString();
+      _auxiliarD.text =
+          ((lateral * lateral * auxD).toStringAsFixed(2)).toString();
+
+      double aT = lateral * lateral * auxA;
+      double bT = lateral * lateral * auxB;
+      double cT = lateral * lateral * auxC;
+      double dT = lateral * lateral * auxD;
+
+      _volumen.text = ((aT + bT + cT + dT).toStringAsFixed(2)).toString();
     }
   }
 }

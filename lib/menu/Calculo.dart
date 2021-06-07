@@ -124,7 +124,14 @@ class _Calculo extends State<Calculo> {
                   context,
                   MaterialPageRoute(
                     builder: (context) => Replanteo(
-                        _pataA.text, _pataB.text, _pataC.text, _pataD.text),
+                        _pataA.text,
+                        _pataB.text,
+                        _pataC.text,
+                        _pataD.text,
+                        _promedioA.text,
+                        _promedioB.text,
+                        _promedioC.text,
+                        _promedioD.text),
                   ));
             }));
   }
@@ -1002,8 +1009,8 @@ class _Calculo extends State<Calculo> {
   void _calculate() {
     if (_cotaCentralInput.text.trim().isNotEmpty &&
         _profundidadInput.text.trim().isNotEmpty) {
-      final firstValue = double.parse(_cotaCentralInput.text);
-      final secondValue = double.parse(_profundidadInput.text);
+      double firstValue = double.parse(_cotaCentralInput.text);
+      double secondValue = double.parse(_profundidadInput.text);
       _resultado.text = (firstValue - secondValue).toString();
     }
   }
@@ -1016,231 +1023,340 @@ class _Calculo extends State<Calculo> {
         _pataB.text.trim().isNotEmpty &&
         _pataC.text.trim().isNotEmpty &&
         _pataD.text.trim().isNotEmpty) {
-      final firstValue = double.parse(_cotaCentralInput.text);
-      final secondValue = double.parse(_profundidadInput.text);
+      double firstValue = double.parse(_cotaCentralInput.text);
+      double secondValue = double.parse(_profundidadInput.text);
 
-      final pataValueA = double.parse(_pataA.text);
-      final pataValueB = double.parse(_pataB.text);
-      final pataValueC = double.parse(_pataC.text);
-      final pataValueD = double.parse(_pataD.text);
+      double pataValueA = double.parse(_pataA.text);
+      double pataValueB = double.parse(_pataB.text);
+      double pataValueC = double.parse(_pataC.text);
+      double pataValueD = double.parse(_pataD.text);
 
-      final pataValueAInt = double.parse(_pataIntA.text);
-      final pataValueAExt = double.parse(_pataExtA.text);
-      final pataValueBInt = double.parse(_pataIntB.text);
-      final pataValueBExt = double.parse(_pataExtB.text);
-      final pataValueCInt = double.parse(_pataIntC.text);
-      final pataValueCExt = double.parse(_pataExtC.text);
-      final pataValueDInt = double.parse(_pataIntD.text);
-      final pataValueDExt = double.parse(_pataExtD.text);
+      double pataValueAInt = double.parse(_pataIntA.text);
+      double pataValueAExt = double.parse(_pataExtA.text);
+      double pataValueBInt = double.parse(_pataIntB.text);
+      double pataValueBExt = double.parse(_pataExtB.text);
+      double pataValueCInt = double.parse(_pataIntC.text);
+      double pataValueCExt = double.parse(_pataExtC.text);
+      double pataValueDInt = double.parse(_pataIntD.text);
+      double pataValueDExt = double.parse(_pataExtD.text);
 
-      final total = firstValue - secondValue;
+      double total = firstValue - secondValue;
       switch (_opcionSeleccionada) {
         case 'A':
           //A
-          _resultadoCotaFundIntA.text = (total).toString();
-          _resultadoCotaFundExtA.text = (total).toString();
-          _resultadoIntProfA.text = (pataValueAInt - total).toString();
-          _resultadoExtProfA.text = (pataValueAExt - total).toString();
+          _resultadoCotaFundIntA.text = (total.toStringAsFixed(2)).toString();
+          _resultadoCotaFundExtA.text = (total.toStringAsFixed(2)).toString();
+          _resultadoIntProfA.text =
+              ((pataValueAInt - total).toStringAsFixed(2)).toString();
+          _resultadoExtProfA.text =
+              ((pataValueAExt - total).toStringAsFixed(2)).toString();
+
           _promedioA.text =
-              (((pataValueAInt - total) + (pataValueAExt - total)) / 2)
+              ((((pataValueAInt - total) + (pataValueAExt - total)) / 2)
+                      .toStringAsFixed(2))
                   .toString();
           //B
           _resultadoCotaFundIntB.text =
-              (total - (pataValueB - pataValueA)).toString();
+              ((total - (pataValueB - pataValueA)).toStringAsFixed(2))
+                  .toString();
           _resultadoCotaFundExtB.text =
-              (total - (pataValueB - pataValueA)).toString();
+              ((total - (pataValueB - pataValueA)).toStringAsFixed(2))
+                  .toString();
           _resultadoIntProfB.text =
-              (pataValueBInt - (total - (pataValueB - pataValueA))).toString();
+              ((pataValueBInt - (total - (pataValueB - pataValueA)))
+                      .toStringAsFixed(2))
+                  .toString();
           _resultadoExtProfB.text =
-              (pataValueBInt - (total - (pataValueB - pataValueA))).toString();
-          _promedioB.text = (((pataValueBInt -
-                          (total - (pataValueB - pataValueA))) +
-                      (pataValueBInt - (total - (pataValueB - pataValueA)))) /
-                  2)
-              .toString();
+              ((pataValueBExt - (total - (pataValueB - pataValueA)))
+                      .toStringAsFixed(2))
+                  .toString();
+          _promedioB.text =
+              ((((pataValueBInt - (total - (pataValueB - pataValueA))) +
+                              (pataValueBExt -
+                                  (total - (pataValueB - pataValueA)))) /
+                          2)
+                      .toStringAsFixed(2))
+                  .toString();
           //C
           _resultadoCotaFundIntC.text =
-              (total - (pataValueC - pataValueA)).toString();
+              ((total - (pataValueC - pataValueA)).toStringAsFixed(2))
+                  .toString();
           _resultadoCotaFundExtC.text =
-              (total - (pataValueC - pataValueA)).toString();
+              ((total - (pataValueC - pataValueA)).toStringAsFixed(2))
+                  .toString();
           _resultadoIntProfC.text =
-              (pataValueCInt - (total - (pataValueC - pataValueA))).toString();
+              ((pataValueCInt - (total - (pataValueC - pataValueA)))
+                      .toStringAsFixed(2))
+                  .toString();
           _resultadoExtProfC.text =
-              (pataValueCExt - (total - (pataValueC - pataValueA))).toString();
-          _promedioC.text = (((pataValueCInt -
-                          (total - (pataValueC - pataValueA))) +
-                      (pataValueCExt - (total - (pataValueC - pataValueA)))) /
-                  2)
-              .toString();
+              ((pataValueCExt - (total - (pataValueC - pataValueA)))
+                      .toStringAsFixed(2))
+                  .toString();
+          _promedioC.text =
+              ((((pataValueCInt - (total - (pataValueC - pataValueA))) +
+                              (pataValueCExt -
+                                  (total - (pataValueC - pataValueA)))) /
+                          2)
+                      .toStringAsFixed(2))
+                  .toString();
           //D
           _resultadoCotaFundIntD.text =
-              (total - (pataValueD - pataValueA)).toString();
+              ((total - (pataValueD - pataValueA)).toStringAsFixed(2))
+                  .toString();
           _resultadoCotaFundExtD.text =
-              (total - (pataValueD - pataValueA)).toString();
+              ((total - (pataValueD - pataValueA)).toStringAsFixed(2))
+                  .toString();
           _resultadoIntProfD.text =
-              (pataValueDInt - (total - (pataValueD - pataValueA))).toString();
+              ((pataValueDInt - (total - (pataValueD - pataValueA)))
+                      .toStringAsFixed(2))
+                  .toString();
           _resultadoExtProfD.text =
-              (pataValueDExt - (total - (pataValueD - pataValueA))).toString();
-          _promedioD.text = (((pataValueDInt -
-                          (total - (pataValueD - pataValueA))) +
-                      (pataValueDExt - (total - (pataValueD - pataValueA)))) /
-                  2)
-              .toString();
+              ((pataValueDExt - (total - (pataValueD - pataValueA)))
+                      .toStringAsFixed(2))
+                  .toString();
+          _promedioD.text =
+              ((((pataValueDInt - (total - (pataValueD - pataValueA))) +
+                              (pataValueDExt -
+                                  (total - (pataValueD - pataValueA)))) /
+                          2)
+                      .toStringAsFixed(2))
+                  .toString();
           break;
         case 'B':
           //A
           _resultadoCotaFundIntA.text =
-              (total - (pataValueA - pataValueB)).toString();
+              ((total - (pataValueA - pataValueB)).toStringAsFixed(2))
+                  .toString();
           _resultadoCotaFundExtA.text =
-              (total - (pataValueA - pataValueB)).toString();
+              ((total - (pataValueA - pataValueB)).toStringAsFixed(2))
+                  .toString();
           _resultadoIntProfA.text =
-              (pataValueAInt - (total - (pataValueA - pataValueB))).toString();
+              ((pataValueAInt - (total - (pataValueA - pataValueB)))
+                      .toStringAsFixed(2))
+                  .toString();
           _resultadoExtProfA.text =
-              (pataValueAExt - (total - (pataValueA - pataValueB))).toString();
-          _promedioA.text = (((pataValueAInt -
-                          (total - (pataValueA - pataValueB))) +
-                      (pataValueAExt - (total - (pataValueA - pataValueB)))) /
-                  2)
-              .toString();
+              ((pataValueAExt - (total - (pataValueA - pataValueB)))
+                      .toStringAsFixed(2))
+                  .toString();
+          _promedioA.text =
+              ((((pataValueAInt - (total - (pataValueA - pataValueB))) +
+                              (pataValueAExt -
+                                  (total - (pataValueA - pataValueB)))) /
+                          2)
+                      .toStringAsFixed(2))
+                  .toString();
           //B
-          _resultadoCotaFundIntB.text = (total).toString();
-          _resultadoCotaFundExtB.text = (total).toString();
-          _resultadoIntProfB.text = (pataValueBInt - total).toString();
-          _resultadoExtProfB.text = (pataValueBExt - total).toString();
+          _resultadoCotaFundIntB.text = ((total).toStringAsFixed(2)).toString();
+          _resultadoCotaFundExtB.text = ((total).toStringAsFixed(2)).toString();
+          _resultadoIntProfB.text =
+              ((pataValueBInt - total).toStringAsFixed(2)).toString();
+          _resultadoExtProfB.text =
+              ((pataValueBExt - total).toStringAsFixed(2)).toString();
           _promedioB.text =
-              (((pataValueBInt - total) + (pataValueBExt - total)) / 2)
+              ((((pataValueBInt - total) + (pataValueBExt - total)) / 2)
+                      .toStringAsFixed(2))
                   .toString();
           //C
           _resultadoCotaFundIntC.text =
-              (total - (pataValueC - pataValueB)).toString();
+              ((total - (pataValueC - pataValueB)).toStringAsFixed(2))
+                  .toString();
           _resultadoCotaFundExtC.text =
-              (total - (pataValueC - pataValueB)).toString();
+              ((total - (pataValueC - pataValueB)).toStringAsFixed(2))
+                  .toString();
           _resultadoIntProfC.text =
-              (pataValueCInt - (total - (pataValueC - pataValueB))).toString();
+              ((pataValueCInt - (total - (pataValueC - pataValueB)))
+                      .toStringAsFixed(2))
+                  .toString();
           _resultadoExtProfC.text =
-              (pataValueCExt - (total - (pataValueC - pataValueB))).toString();
-          _promedioC.text = (((pataValueCInt -
-                          (total - (pataValueC - pataValueB))) +
-                      (pataValueCExt - (total - (pataValueC - pataValueB)))) /
-                  2)
-              .toString();
+              ((pataValueCExt - (total - (pataValueC - pataValueB)))
+                      .toStringAsFixed(2))
+                  .toString();
+          _promedioC.text =
+              ((((pataValueCInt - (total - (pataValueC - pataValueB))) +
+                              (pataValueCExt -
+                                  (total - (pataValueC - pataValueB)))) /
+                          2)
+                      .toStringAsFixed(2))
+                  .toString();
           //D
           _resultadoCotaFundIntD.text =
-              (total - (pataValueD - pataValueB)).toString();
+              ((total - (pataValueD - pataValueB)).toStringAsFixed(2))
+                  .toString();
           _resultadoCotaFundExtD.text =
-              (total - (pataValueD - pataValueB)).toString();
+              ((total - (pataValueD - pataValueB)).toStringAsFixed(2))
+                  .toString();
           _resultadoIntProfD.text =
-              (pataValueDInt - (total - (pataValueD - pataValueB))).toString();
+              ((pataValueDInt - (total - (pataValueD - pataValueB)))
+                      .toStringAsFixed(2))
+                  .toString();
           _resultadoExtProfD.text =
-              (pataValueDExt - (total - (pataValueD - pataValueB))).toString();
-          _promedioD.text = (((pataValueDInt -
-                          (total - (pataValueD - pataValueB))) +
-                      (pataValueDExt - (total - (pataValueD - pataValueB)))) /
-                  2)
-              .toString();
+              ((pataValueDExt - (total - (pataValueD - pataValueB)))
+                      .toStringAsFixed(2))
+                  .toString();
+          _promedioD.text =
+              ((((pataValueDInt - (total - (pataValueD - pataValueB))) +
+                              (pataValueDExt -
+                                  (total - (pataValueD - pataValueB)))) /
+                          2)
+                      .toStringAsFixed(2))
+                  .toString();
           break;
         case 'C':
           //A
           _resultadoCotaFundIntA.text =
-              (total - (pataValueA - pataValueC)).toString();
+              ((total - (pataValueA - pataValueC)).toStringAsFixed(2))
+                  .toString();
           _resultadoCotaFundExtA.text =
-              (total - (pataValueA - pataValueC)).toString();
+              ((total - (pataValueA - pataValueC)).toStringAsFixed(2))
+                  .toString();
           _resultadoIntProfA.text =
-              (pataValueAInt - (total - (pataValueA - pataValueC))).toString();
+              ((pataValueAInt - (total - (pataValueA - pataValueC)))
+                      .toStringAsFixed(2))
+                  .toString();
           _resultadoExtProfA.text =
-              (pataValueAExt - (total - (pataValueA - pataValueC))).toString();
-          _promedioA.text = (((pataValueAInt -
-                          (total - (pataValueA - pataValueC))) +
-                      (pataValueAExt - (total - (pataValueA - pataValueC)))) /
-                  2)
-              .toString();
+              ((pataValueAExt - (total - (pataValueA - pataValueC)))
+                      .toStringAsFixed(2))
+                  .toString();
+          _promedioA.text =
+              ((((pataValueAInt - (total - (pataValueA - pataValueC))) +
+                              (pataValueAExt -
+                                  (total - (pataValueA - pataValueC)))) /
+                          2)
+                      .toStringAsFixed(2))
+                  .toString();
           //B
           _resultadoCotaFundIntB.text =
-              (total - (pataValueB - pataValueC)).toString();
+              ((total - (pataValueB - pataValueC)).toStringAsFixed(2))
+                  .toString();
           _resultadoCotaFundExtB.text =
-              (total - (pataValueB - pataValueC)).toString();
+              ((total - (pataValueB - pataValueC)).toStringAsFixed(2))
+                  .toString();
           _resultadoIntProfB.text =
-              (pataValueBInt - (total - (pataValueB - pataValueC))).toString();
+              ((pataValueBInt - (total - (pataValueB - pataValueC)))
+                      .toStringAsFixed(2))
+                  .toString();
           _resultadoExtProfB.text =
-              (pataValueBExt - (total - (pataValueB - pataValueC))).toString();
-          _promedioB.text = (((pataValueBInt -
-                          (total - (pataValueB - pataValueC))) +
-                      (pataValueBExt - (total - (pataValueB - pataValueC)))) /
-                  2)
-              .toString();
+              ((pataValueBExt - (total - (pataValueB - pataValueC)))
+                      .toStringAsFixed(2))
+                  .toString();
+          _promedioB.text =
+              ((((pataValueBInt - (total - (pataValueB - pataValueC))) +
+                              (pataValueBExt -
+                                  (total - (pataValueB - pataValueC)))) /
+                          2)
+                      .toStringAsFixed(2))
+                  .toString();
           //C
-          _resultadoCotaFundIntC.text = (total).toString();
-          _resultadoCotaFundExtC.text = (total).toString();
-          _resultadoIntProfC.text = (pataValueCInt - total).toString();
-          _resultadoExtProfC.text = (pataValueCExt - total).toString();
+          _resultadoCotaFundIntC.text = ((total).toStringAsFixed(2)).toString();
+          _resultadoCotaFundExtC.text = ((total).toStringAsFixed(2)).toString();
+          _resultadoIntProfC.text =
+              ((pataValueCInt - total).toStringAsFixed(2)).toString();
+          _resultadoExtProfC.text =
+              ((pataValueCExt - total).toStringAsFixed(2)).toString();
           _promedioC.text =
-              (((pataValueCInt - total) + (pataValueCExt - total)) / 2)
+              ((((pataValueCInt - total) + (pataValueCExt - total)) / 2)
+                      .toStringAsFixed(2))
                   .toString();
           //D
           _resultadoCotaFundIntD.text =
-              (total - (pataValueD - pataValueC)).toString();
+              ((total - (pataValueD - pataValueC)).toStringAsFixed(2))
+                  .toString();
           _resultadoCotaFundExtD.text =
-              (total - (pataValueD - pataValueC)).toString();
+              ((total - (pataValueD - pataValueC)).toStringAsFixed(2))
+                  .toString();
           _resultadoIntProfD.text =
-              (pataValueDInt - (total - (pataValueD - pataValueC))).toString();
+              ((pataValueDInt - (total - (pataValueD - pataValueC)))
+                      .toStringAsFixed(2))
+                  .toString();
           _resultadoExtProfD.text =
-              (pataValueDExt - (total - (pataValueD - pataValueC))).toString();
-          _promedioD.text = (((pataValueDInt -
-                          (total - (pataValueD - pataValueC))) +
-                      (pataValueDExt - (total - (pataValueD - pataValueC)))) /
-                  2)
-              .toString();
+              ((pataValueDExt - (total - (pataValueD - pataValueC)))
+                      .toStringAsFixed(2))
+                  .toString();
+          _promedioD.text =
+              ((((pataValueDInt - (total - (pataValueD - pataValueC))) +
+                              (pataValueDExt -
+                                  (total - (pataValueD - pataValueC)))) /
+                          2)
+                      .toStringAsFixed(2))
+                  .toString();
           break;
         case 'D':
           //A
           _resultadoCotaFundIntA.text =
-              (total - (pataValueA - pataValueD)).toString();
+              ((total - (pataValueA - pataValueD)).toStringAsFixed(2))
+                  .toString();
           _resultadoCotaFundExtA.text =
-              (total - (pataValueA - pataValueD)).toString();
+              ((total - (pataValueA - pataValueD)).toStringAsFixed(2))
+                  .toString();
           _resultadoIntProfA.text =
-              (pataValueAInt - (total - (pataValueA - pataValueD))).toString();
+              ((pataValueAInt - (total - (pataValueA - pataValueD)))
+                      .toStringAsFixed(2))
+                  .toString();
           _resultadoExtProfA.text =
-              (pataValueAExt - (total - (pataValueA - pataValueD))).toString();
-          _promedioA.text = (((pataValueAInt -
-                          (total - (pataValueA - pataValueD))) +
-                      (pataValueAExt - (total - (pataValueA - pataValueD)))) /
-                  2)
-              .toString();
+              ((pataValueAExt - (total - (pataValueA - pataValueD)))
+                      .toStringAsFixed(2))
+                  .toString();
+          _promedioA.text =
+              ((((pataValueAInt - (total - (pataValueA - pataValueD))) +
+                              (pataValueAExt -
+                                  (total - (pataValueA - pataValueD)))) /
+                          2)
+                      .toStringAsFixed(2))
+                  .toString();
           //B
           _resultadoCotaFundIntB.text =
-              (total - (pataValueB - pataValueD)).toString();
+              ((total - (pataValueB - pataValueD)).toStringAsFixed(2))
+                  .toString();
           _resultadoCotaFundExtB.text =
-              (total - (pataValueB - pataValueD)).toString();
+              ((total - (pataValueB - pataValueD)).toStringAsFixed(2))
+                  .toString();
           _resultadoIntProfB.text =
-              (pataValueBInt - (total - (pataValueB - pataValueD))).toString();
+              ((pataValueBInt - (total - (pataValueB - pataValueD)))
+                      .toStringAsFixed(2))
+                  .toString();
           _resultadoExtProfB.text =
-              (pataValueBExt - (total - (pataValueB - pataValueD))).toString();
-          _promedioB.text = (((pataValueBInt -
-                          (total - (pataValueB - pataValueD))) +
-                      (pataValueBExt - (total - (pataValueB - pataValueD)))) /
-                  2)
-              .toString();
+              ((pataValueBExt - (total - (pataValueB - pataValueD)))
+                      .toStringAsFixed(2))
+                  .toString();
+          _promedioB.text =
+              ((((pataValueBInt - (total - (pataValueB - pataValueD))) +
+                              (pataValueBExt -
+                                  (total - (pataValueB - pataValueD)))) /
+                          2)
+                      .toStringAsFixed(2))
+                  .toString();
           //C
           _resultadoCotaFundIntC.text =
-              (total - (pataValueC - pataValueD)).toString();
+              ((total - (pataValueC - pataValueD)).toStringAsFixed(2))
+                  .toString();
           _resultadoCotaFundExtC.text =
-              (total - (pataValueC - pataValueD)).toString();
+              ((total - (pataValueC - pataValueD)).toStringAsFixed(2))
+                  .toString();
           _resultadoIntProfC.text =
-              (pataValueCInt - (total - (pataValueC - pataValueD))).toString();
+              ((pataValueCInt - (total - (pataValueC - pataValueD)))
+                      .toStringAsFixed(2))
+                  .toString();
           _resultadoExtProfC.text =
-              (pataValueCExt - (total - (pataValueC - pataValueD))).toString();
-          _promedioC.text = (((pataValueCInt -
-                          (total - (pataValueC - pataValueD))) +
-                      (pataValueCExt - (total - (pataValueC - pataValueD)))) /
-                  2)
-              .toString();
+              ((pataValueCExt - (total - (pataValueC - pataValueD)))
+                      .toStringAsFixed(2))
+                  .toString();
+          _promedioC.text =
+              ((((pataValueCInt - (total - (pataValueC - pataValueD))) +
+                              (pataValueCExt -
+                                  (total - (pataValueC - pataValueD)))) /
+                          2)
+                      .toStringAsFixed(2))
+                  .toString();
           //D
-          _resultadoCotaFundIntD.text = (total).toString();
-          _resultadoCotaFundExtD.text = (total).toString();
-          _resultadoIntProfD.text = (pataValueDInt - total).toString();
-          _resultadoExtProfD.text = (pataValueDExt - total).toString();
+          _resultadoCotaFundIntD.text = ((total).toStringAsFixed(2)).toString();
+          _resultadoCotaFundExtD.text = ((total).toStringAsFixed(2)).toString();
+          _resultadoIntProfD.text =
+              ((pataValueDInt - total).toStringAsFixed(2)).toString();
+          _resultadoExtProfD.text =
+              ((pataValueDExt - total).toStringAsFixed(2)).toString();
           _promedioD.text =
-              (((pataValueDInt - total) + (pataValueDExt - total)) / 2)
+              ((((pataValueDInt - total) + (pataValueDExt - total)) / 2)
+                      .toStringAsFixed(2))
                   .toString();
           break;
       }

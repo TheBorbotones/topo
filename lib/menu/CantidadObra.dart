@@ -3,8 +3,35 @@ import 'package:flutter/material.dart';
 import 'Lateral.dart';
 
 class CantidadObra extends StatefulWidget {
-  final String pata_A, pata_B, pata_C, pata_D;
-  CantidadObra(this.pata_A, this.pata_B, this.pata_C, this.pata_D);
+  final String pata_A,
+      pata_B,
+      pata_C,
+      pata_D,
+      promedioA,
+      promedioB,
+      promedioC,
+      promedioD,
+      lateralAux,
+      auxiliarA,
+      auxiliarB,
+      auxiliarC,
+      auxiliarD,
+      volumen;
+  CantidadObra(
+      this.pata_A,
+      this.pata_B,
+      this.pata_C,
+      this.pata_D,
+      this.promedioA,
+      this.promedioB,
+      this.promedioC,
+      this.promedioD,
+      this.lateralAux,
+      this.auxiliarA,
+      this.auxiliarB,
+      this.auxiliarC,
+      this.auxiliarD,
+      this.volumen);
   @override
   _CantidadObra createState() => _CantidadObra();
 }
@@ -27,6 +54,12 @@ class _CantidadObra extends State<CantidadObra> {
   TextEditingController _resultadoD = TextEditingController();
 
   TextEditingController _resultado = TextEditingController();
+  TextEditingController _lateralAux = TextEditingController();
+
+  TextEditingController _pataA = TextEditingController();
+  TextEditingController _pataB = TextEditingController();
+  TextEditingController _pataC = TextEditingController();
+  TextEditingController _pataD = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +93,8 @@ class _CantidadObra extends State<CantidadObra> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => Lateral(),
+                    builder: (context) => Lateral(
+                        _pataA.text, _pataB.text, _pataC.text, _pataD.text),
                   ));
             }));
   }
@@ -69,9 +103,10 @@ class _CantidadObra extends State<CantidadObra> {
     return AbsorbPointer(
       child: TextField(
         decoration: InputDecoration(
+          enabled: false,
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(20.0)),
-          hintText: 'Resultado',
-          labelText: 'Resultado',
+          hintText: 'Volumen m3',
+          labelText: 'Volumen m3',
           suffixIcon: Icon(Icons.square_foot),
           filled: true,
           fillColor: Color(0xFFDBEDFF),
@@ -92,6 +127,7 @@ class _CantidadObra extends State<CantidadObra> {
           child: new TextField(
             textCapitalization: TextCapitalization.sentences,
             decoration: InputDecoration(
+              enabled: false,
               contentPadding: EdgeInsets.all(10),
               border:
                   OutlineInputBorder(borderRadius: BorderRadius.circular(20.0)),
@@ -101,9 +137,6 @@ class _CantidadObra extends State<CantidadObra> {
             ),
             keyboardType: TextInputType.numberWithOptions(decimal: true),
             controller: _promedioA,
-            onChanged: (value) {
-              _calculate2();
-            },
           ),
         ),
         new Flexible(
@@ -112,6 +145,7 @@ class _CantidadObra extends State<CantidadObra> {
           child: new TextField(
             textCapitalization: TextCapitalization.sentences,
             decoration: InputDecoration(
+              enabled: false,
               contentPadding: EdgeInsets.all(10),
               border:
                   OutlineInputBorder(borderRadius: BorderRadius.circular(20.0)),
@@ -121,9 +155,6 @@ class _CantidadObra extends State<CantidadObra> {
             ),
             keyboardType: TextInputType.numberWithOptions(decimal: true),
             controller: _lateralA,
-            onChanged: (value) {
-              _calculate2();
-            },
           ),
         ),
         new Flexible(
@@ -132,6 +163,7 @@ class _CantidadObra extends State<CantidadObra> {
           child: new TextField(
             textCapitalization: TextCapitalization.sentences,
             decoration: InputDecoration(
+              enabled: false,
               contentPadding: EdgeInsets.all(10),
               border:
                   OutlineInputBorder(borderRadius: BorderRadius.circular(20.0)),
@@ -159,6 +191,7 @@ class _CantidadObra extends State<CantidadObra> {
           child: new TextField(
             textCapitalization: TextCapitalization.sentences,
             decoration: InputDecoration(
+              enabled: false,
               contentPadding: EdgeInsets.all(10),
               border:
                   OutlineInputBorder(borderRadius: BorderRadius.circular(20.0)),
@@ -168,9 +201,6 @@ class _CantidadObra extends State<CantidadObra> {
             ),
             keyboardType: TextInputType.numberWithOptions(decimal: true),
             controller: _promedioB,
-            onChanged: (value) {
-              _calculate2();
-            },
           ),
         ),
         new Flexible(
@@ -179,6 +209,7 @@ class _CantidadObra extends State<CantidadObra> {
           child: new TextField(
             textCapitalization: TextCapitalization.sentences,
             decoration: InputDecoration(
+              enabled: false,
               contentPadding: EdgeInsets.all(10),
               border:
                   OutlineInputBorder(borderRadius: BorderRadius.circular(20.0)),
@@ -188,9 +219,6 @@ class _CantidadObra extends State<CantidadObra> {
             ),
             keyboardType: TextInputType.numberWithOptions(decimal: true),
             controller: _lateralB,
-            onChanged: (value) {
-              _calculate2();
-            },
           ),
         ),
         new Flexible(
@@ -199,6 +227,7 @@ class _CantidadObra extends State<CantidadObra> {
           child: new TextField(
             textCapitalization: TextCapitalization.sentences,
             decoration: InputDecoration(
+              enabled: false,
               contentPadding: EdgeInsets.all(10),
               border:
                   OutlineInputBorder(borderRadius: BorderRadius.circular(20.0)),
@@ -226,6 +255,7 @@ class _CantidadObra extends State<CantidadObra> {
           child: new TextField(
             textCapitalization: TextCapitalization.sentences,
             decoration: InputDecoration(
+              enabled: false,
               contentPadding: EdgeInsets.all(10),
               border:
                   OutlineInputBorder(borderRadius: BorderRadius.circular(20.0)),
@@ -235,9 +265,6 @@ class _CantidadObra extends State<CantidadObra> {
             ),
             keyboardType: TextInputType.numberWithOptions(decimal: true),
             controller: _promedioC,
-            onChanged: (value) {
-              _calculate2();
-            },
           ),
         ),
         new Flexible(
@@ -246,6 +273,7 @@ class _CantidadObra extends State<CantidadObra> {
           child: new TextField(
             textCapitalization: TextCapitalization.sentences,
             decoration: InputDecoration(
+              enabled: false,
               contentPadding: EdgeInsets.all(10),
               border:
                   OutlineInputBorder(borderRadius: BorderRadius.circular(20.0)),
@@ -255,9 +283,6 @@ class _CantidadObra extends State<CantidadObra> {
             ),
             keyboardType: TextInputType.numberWithOptions(decimal: true),
             controller: _lateralC,
-            onChanged: (value) {
-              _calculate2();
-            },
           ),
         ),
         new Flexible(
@@ -266,6 +291,7 @@ class _CantidadObra extends State<CantidadObra> {
           child: new TextField(
             textCapitalization: TextCapitalization.sentences,
             decoration: InputDecoration(
+              enabled: false,
               contentPadding: EdgeInsets.all(10),
               border:
                   OutlineInputBorder(borderRadius: BorderRadius.circular(20.0)),
@@ -293,6 +319,7 @@ class _CantidadObra extends State<CantidadObra> {
           child: new TextField(
             textCapitalization: TextCapitalization.sentences,
             decoration: InputDecoration(
+              enabled: false,
               contentPadding: EdgeInsets.all(10),
               border:
                   OutlineInputBorder(borderRadius: BorderRadius.circular(20.0)),
@@ -302,9 +329,6 @@ class _CantidadObra extends State<CantidadObra> {
             ),
             keyboardType: TextInputType.numberWithOptions(decimal: true),
             controller: _promedioD,
-            onChanged: (value) {
-              _calculate2();
-            },
           ),
         ),
         new Flexible(
@@ -313,6 +337,7 @@ class _CantidadObra extends State<CantidadObra> {
           child: new TextField(
             textCapitalization: TextCapitalization.sentences,
             decoration: InputDecoration(
+              enabled: false,
               contentPadding: EdgeInsets.all(10),
               border:
                   OutlineInputBorder(borderRadius: BorderRadius.circular(20.0)),
@@ -322,9 +347,6 @@ class _CantidadObra extends State<CantidadObra> {
             ),
             keyboardType: TextInputType.numberWithOptions(decimal: true),
             controller: _lateralD,
-            onChanged: (value) {
-              _calculate2();
-            },
           ),
         ),
         new Flexible(
@@ -333,6 +355,7 @@ class _CantidadObra extends State<CantidadObra> {
           child: new TextField(
             textCapitalization: TextCapitalization.sentences,
             decoration: InputDecoration(
+              enabled: false,
               contentPadding: EdgeInsets.all(10),
               border:
                   OutlineInputBorder(borderRadius: BorderRadius.circular(20.0)),
@@ -350,38 +373,31 @@ class _CantidadObra extends State<CantidadObra> {
     );
   }
 
-  void _calculate2() {
-    final a1 = double.parse(_promedioA.text);
-    final b1 = double.parse(_lateralA.text);
-    final a2 = double.parse(_promedioB.text);
-    final b2 = double.parse(_lateralB.text);
-    final a3 = double.parse(_promedioC.text);
-    final b3 = double.parse(_lateralC.text);
-    final a4 = double.parse(_promedioD.text);
-    final b4 = double.parse(_lateralD.text);
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) => _introducirData());
+  }
 
-    if (_promedioA.text.trim().isNotEmpty && _lateralA.text.trim().isNotEmpty) {
-      final firstValueA = double.parse(_promedioA.text);
-      final secondValueA = double.parse(_lateralA.text);
-      _resultadoA.text = (firstValueA * secondValueA * secondValueA).toString();
-    }
-    if (_promedioB.text.trim().isNotEmpty && _lateralB.text.trim().isNotEmpty) {
-      final firstValueB = double.parse(_promedioB.text);
-      final secondValueB = double.parse(_lateralB.text);
-      _resultadoB.text = (firstValueB * secondValueB * secondValueB).toString();
-    }
-    if (_promedioC.text.trim().isNotEmpty && _lateralC.text.trim().isNotEmpty) {
-      final firstValueC = double.parse(_promedioC.text);
-      final secondValueC = double.parse(_lateralC.text);
-      _resultadoC.text = (firstValueC * secondValueC * secondValueC).toString();
-    }
-    if (_promedioD.text.trim().isNotEmpty && _lateralD.text.trim().isNotEmpty) {
-      final firstValueD = double.parse(_promedioD.text);
-      final secondValueD = double.parse(_lateralD.text);
-      _resultadoD.text = (firstValueD * secondValueD * secondValueD).toString();
-    }
-    final total =
-        (a1 * b1 * b1) + (a2 * b2 * b2) + (a3 * b3 * b3) + (a4 * b4 * b4);
-    _resultado.text = (total).toString();
+  //
+  void _introducirData() {
+    _pataA.text = (widget.pata_A).toString();
+    _pataB.text = (widget.pata_B).toString();
+    _pataC.text = (widget.pata_C).toString();
+    _pataD.text = (widget.pata_D).toString();
+    _promedioA.text = (widget.promedioA).toString();
+    _promedioB.text = (widget.promedioB).toString();
+    _promedioC.text = (widget.promedioC).toString();
+    _promedioD.text = (widget.promedioD).toString();
+
+    _lateralA.text = (widget.lateralAux).toString();
+    _lateralB.text = (widget.lateralAux).toString();
+    _lateralC.text = (widget.lateralAux).toString();
+    _lateralD.text = (widget.lateralAux).toString();
+
+    _resultadoA.text = (widget.auxiliarA).toString();
+    _resultadoB.text = (widget.auxiliarB).toString();
+    _resultadoC.text = (widget.auxiliarC).toString();
+    _resultadoD.text = (widget.auxiliarD).toString();
+    _resultado.text = (widget.volumen).toString();
   }
 }

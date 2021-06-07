@@ -1,79 +1,55 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'Diagonales.dart';
 
-class Lateral extends StatefulWidget {
+class Diagonales extends StatefulWidget {
   final String pata_A, pata_B, pata_C, pata_D;
-  Lateral(this.pata_A, this.pata_B, this.pata_C, this.pata_D);
+  Diagonales(this.pata_A, this.pata_B, this.pata_C, this.pata_D);
   @override
-  _Lateral createState() => _Lateral();
+  _Diagonales createState() => _Diagonales();
 }
 
-class _Lateral extends State<Lateral> {
+class _Diagonales extends State<Diagonales> {
   TextEditingController _pataA = TextEditingController();
-  TextEditingController _latA = TextEditingController();
-
   TextEditingController _pataB = TextEditingController();
-  TextEditingController _latB = TextEditingController();
-
   TextEditingController _pataC = TextEditingController();
-  TextEditingController _latC = TextEditingController();
-
   TextEditingController _pataD = TextEditingController();
-  TextEditingController _latD = TextEditingController();
 
-  TextEditingController _resultado_A_B = TextEditingController();
-  TextEditingController _minA_B = TextEditingController();
+  TextEditingController _diaA = TextEditingController();
+  TextEditingController _diaB = TextEditingController();
+  TextEditingController _diaC = TextEditingController();
+  TextEditingController _diaD = TextEditingController();
 
   TextEditingController _resultadoA = TextEditingController();
   TextEditingController _resultadoB = TextEditingController();
-  TextEditingController _resultadoC = TextEditingController();
-  TextEditingController _resultadoD = TextEditingController();
-
-  get developer => null;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text(
-            'LATERALES',
-            textAlign: TextAlign.center,
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
+      appBar: AppBar(
+        title: Text(
+          'DIAGONALES',
+          textAlign: TextAlign.center,
+          overflow: TextOverflow.ellipsis,
+          style: TextStyle(fontWeight: FontWeight.bold),
         ),
-        body: ListView(
-          padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
-          children: <Widget>[
-            _patasA(),
-            Divider(),
-            _patasB(),
-            Divider(),
-            _lateralesAB(),
-            Divider(),
-            _lateralesCD(),
-            Divider(),
-            _excavacionCotaA(),
-            Divider(),
-            _excavacionCotaB()
-          ],
-        ),
-        floatingActionButton: FloatingActionButton(
-            elevation: 10.0,
-            child: Icon(Icons.skip_next),
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => Diagonales(
-                        _pataA.text, _pataB.text, _pataC.text, _pataD.text),
-                  ));
-            }));
+      ),
+      body: ListView(
+        padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
+        children: <Widget>[
+          _patasA(),
+          Divider(),
+          _patasB(),
+          Divider(),
+          _diagonalesAB(),
+          Divider(),
+          _diagonalesCD(),
+          Divider(),
+          _resultado()
+        ],
+      ),
+    );
   }
 
-//
   Widget _patasA() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -126,7 +102,7 @@ class _Lateral extends State<Lateral> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
-        Text('PATAS C-D',
+        Text('C-D',
             style: TextStyle(
               decoration: TextDecoration.none,
             )),
@@ -170,11 +146,11 @@ class _Lateral extends State<Lateral> {
     );
   }
 
-  Widget _lateralesAB() {
+  Widget _diagonalesAB() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
-        Text('LAT A-B',
+        Text('DIAGONALES A-B',
             style: TextStyle(
               decoration: TextDecoration.none,
             )),
@@ -187,12 +163,12 @@ class _Lateral extends State<Lateral> {
                 contentPadding: EdgeInsets.all(10),
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20.0)),
-                hintText: 'Lat A',
-                labelText: 'Lat A',
+                hintText: 'Dia A',
+                labelText: 'Dia A',
                 suffixIcon: Icon(Icons.square_foot),
               ),
               keyboardType: TextInputType.numberWithOptions(decimal: true),
-              controller: _latA,
+              controller: _diaA,
               onChanged: (value) {
                 _calculos();
               },
@@ -208,12 +184,12 @@ class _Lateral extends State<Lateral> {
                 contentPadding: EdgeInsets.all(10),
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20.0)),
-                hintText: 'Lat B',
-                labelText: 'Lat B',
+                hintText: 'Dia B',
+                labelText: 'Dia B',
                 suffixIcon: Icon(Icons.square_foot),
               ),
               keyboardType: TextInputType.numberWithOptions(decimal: true),
-              controller: _latB,
+              controller: _diaB,
               onChanged: (value) {
                 _calculos();
               },
@@ -224,11 +200,11 @@ class _Lateral extends State<Lateral> {
     );
   }
 
-  Widget _lateralesCD() {
+  Widget _diagonalesCD() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
-        Text('LAT C-D',
+        Text('C-D',
             style: TextStyle(
               decoration: TextDecoration.none,
             )),
@@ -241,12 +217,12 @@ class _Lateral extends State<Lateral> {
                 contentPadding: EdgeInsets.all(10),
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20.0)),
-                hintText: 'Lat C',
-                labelText: 'Lat C',
+                hintText: 'Dia C',
+                labelText: 'Dia C',
                 suffixIcon: Icon(Icons.square_foot),
               ),
               keyboardType: TextInputType.numberWithOptions(decimal: true),
-              controller: _latC,
+              controller: _diaC,
               onChanged: (value) {
                 _calculos();
               },
@@ -262,12 +238,12 @@ class _Lateral extends State<Lateral> {
                 contentPadding: EdgeInsets.all(10),
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20.0)),
-                hintText: 'Lat D',
-                labelText: 'Lat D',
+                hintText: 'Dia D',
+                labelText: 'Dia D',
                 suffixIcon: Icon(Icons.square_foot),
               ),
               keyboardType: TextInputType.numberWithOptions(decimal: true),
-              controller: _latD,
+              controller: _diaD,
               onChanged: (value) {
                 _calculos();
               },
@@ -278,7 +254,7 @@ class _Lateral extends State<Lateral> {
     );
   }
 
-  Widget _excavacionCotaA() {
+  Widget _resultado() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
@@ -331,59 +307,6 @@ class _Lateral extends State<Lateral> {
     );
   }
 
-  Widget _excavacionCotaB() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: <Widget>[
-        Flexible(
-          flex: 1,
-          fit: FlexFit.tight,
-          child: Container(
-            child: TextField(
-              decoration: InputDecoration(
-                enabled: false,
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20.0)),
-                hintText: 'C mm',
-                labelText: 'C mm',
-                suffixIcon: Icon(Icons.square_foot),
-                filled: true,
-                fillColor: Color(0xFFDBEDFF),
-              ),
-              controller: _resultadoC,
-              keyboardType: TextInputType.numberWithOptions(decimal: true),
-            ), //BoxDecoration
-          ), //Container
-        ), //Flexible
-        SizedBox(
-          width: 20,
-        ), //SizedBox
-        Flexible(
-          flex: 1,
-          fit: FlexFit.loose,
-          child: Container(
-            child: TextField(
-              decoration: InputDecoration(
-                enabled: false,
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20.0)),
-                hintText: 'D mm',
-                labelText: 'D mm',
-                suffixIcon: Icon(Icons.square_foot),
-                filled: true,
-                fillColor: Color(0xFFDBEDFF),
-              ),
-              controller: _resultadoD,
-              keyboardType: TextInputType.numberWithOptions(decimal: true),
-            ), //BoxDecoration
-          ),
-          //Container
-        ),
-        //Flexible
-      ],
-    );
-  }
-
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) => _introducirData());
@@ -398,87 +321,48 @@ class _Lateral extends State<Lateral> {
   }
 
   void _calculos() {
-    double latA = double.parse(_latA.text);
-    double latB = double.parse(_latB.text);
-    double latC = double.parse(_latC.text);
-    double latD = double.parse(_latD.text);
+    double diaA = double.parse(_diaA.text);
+    double diaB = double.parse(_diaB.text);
+    double diaC = double.parse(_diaC.text);
+    double diaD = double.parse(_diaD.text);
 
     double patA = double.parse(_pataA.text);
     double patB = double.parse(_pataB.text);
     double patC = double.parse(_pataC.text);
     double patD = double.parse(_pataD.text);
 
-    double Hxa = 0, hya = 0, hha = 0, hza = 0;
-    double Hxb = 0, hyb = 0, hhb = 0, hzb = 0;
-    double Hxc = 0, hyc = 0, hhc = 0, hzc = 0;
-    double Hxd = 0, hyd = 0, hhd = 0, hzd = 0;
+    double Hxa = 0, hza = 0;
+    double Hxb = 0, hzb = 0;
 
-    double a = 0, b = 0, c = 0, d = 0;
-    /***************************A-B***************************/
+    double a = 0, b = 0;
+    /***************************A-C***************************/
     /**********hx**********/
-    if (_latA.text.trim().isNotEmpty) {
-      if (latB >= latA) {
-        Hxa = (((latB - latA).abs()) + (2 * latA));
+    if (_diaC.text.trim().isNotEmpty) {
+      if (diaC >= diaA) {
+        Hxa = (((diaC - diaA).abs()) + (2 * diaA));
       } else {
-        Hxa = (((latB - latA).abs()) + (2 * latA));
+        Hxa = (((diaC - diaA).abs()) + (2 * diaC));
       }
     }
-    /**********hy**********/
-    hya = (latB - latA).abs();
-    /**********hh**********/
-    hha = pow((pow(Hxa, 2) + pow(hya, 2)), 0.5);
-    hza = 1000 * (patB - patA).abs();
-
-    a = (pow((pow(hha, 2) + pow(hza, 2)), 0.5).abs()).abs();
+    /**********hZ**********/
+    hza = 1000 * (patC - patA).abs();
+    //FINA
+    a = pow((pow(Hxa, 2) + pow(hza, 2)), 0.5);
     _resultadoA.text = (a.round()).toString();
-    /***************************B-C***************************/
-    /**********hx**********/
-    if (_latC.text.trim().isNotEmpty) {
-      if (latC >= latB) {
-        Hxb = (((latC - latB).abs()) + (2 * latB));
-      } else {
-        Hxb = (((latC - latB).abs()) + (2 * latC));
-      }
-    }
-    /**********hy**********/
-    hyb = (latC - latB).abs();
-    /**********hh**********/
-    hhb = pow((pow(Hxb, 2) + pow(hyb, 2)), 0.5);
-    hzb = 1000 * (patC - patB).abs();
-    b = (pow((pow(hhb, 2) + pow(hzb, 2)), 0.5).abs()).abs();
-    _resultadoB.text = (b.round()).toString();
-    /***************************C-D***************************/
-    /**********hx**********/
-    if (_latD.text.trim().isNotEmpty) {
-      if (latD >= latC) {
-        Hxc = (((latD - latC).abs()) + (2 * latC));
-      } else {
-        Hxc = (((latD - latC).abs()) + (2 * latD));
-      }
-    }
-    /**********hy**********/
-    hyc = (latD - latC).abs();
-    /**********hh**********/
-    hhc = pow((pow(Hxc, 2) + pow(hyc, 2)), 0.5);
-    hzc = 1000 * (patD - patC).abs();
-    c = (pow((pow(hhc, 2) + pow(hzc, 2)), 0.5).abs()).abs();
-    _resultadoC.text = (c.round()).toString();
-    /***************************A-D***************************/
-    /**********hx**********/
-    if (_latD.text.trim().isNotEmpty) {
-      if (latD >= latA) {
-        Hxd = (((latD - latA).abs()) + (2 * latA));
-      } else {
-        Hxd = (((latD - latA).abs()) + (2 * latD));
-      }
-    }
-    /**********hy**********/
-    hyd = (latD - latA).abs();
-    /**********hh**********/
-    hhd = pow((pow(Hxd, 2) + pow(hyd, 2)), 0.5);
-    hzd = 1000 * (patD - patA).abs();
 
-    d = (pow((pow(hhd, 2) + pow(hzd, 2)), 0.5).abs()).abs();
-    _resultadoD.text = (d.round()).toString();
+    /***************************B-D***************************/
+    /**********hx**********/
+    if (_diaD.text.trim().isNotEmpty) {
+      if (diaD >= diaB) {
+        Hxb = (((diaD - diaB).abs()) + (2 * diaB));
+      } else {
+        Hxb = (((diaD - diaB).abs()) + (2 * diaD));
+      }
+    }
+    /**********hZ**********/
+    hzb = 1000 * (patD - patB).abs();
+    //FINA
+    b = pow((pow(Hxb, 2) + pow(hzb, 2)), 0.5);
+    _resultadoB.text = (b.round()).toString();
   }
 }
